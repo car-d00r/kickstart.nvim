@@ -698,6 +698,7 @@ require('lazy').setup({
             },
           },
         },
+        ruff = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -731,6 +732,20 @@ require('lazy').setup({
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
           end,
+        },
+      }
+      require('lspconfig').pyright.setup {
+        on_attach = function(client)
+          -- Disable diagnostics coming from Pyright
+          client.handlers['textDocument/publishDiagnostics'] = function() end
+        end,
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = 'off',
+              diagnosticMode = 'off',
+            },
+          },
         },
       }
     end,
