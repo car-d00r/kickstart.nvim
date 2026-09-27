@@ -703,6 +703,7 @@ require('lazy').setup({
           handlers = {
             -- Disable diagnostics coming from Pyright
             ['textDocument/publishDiagnostics'] = function() end,
+            ['textDocument/diagnostic'] = function() end,
           },
           settings = {
             python = {
